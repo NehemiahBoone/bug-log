@@ -1,11 +1,11 @@
 <template>
   <div class="bugs container-fluid">
     <div class="row">
-      <div class="col-12">
-        <div class="card m-2">
+      <div class="col-12 text-center">
+        <div class="card bugCreateCard">
           <div class="card-body">
             <h4 class="card-title text-center">Post Bug</h4>
-            <div class="card-text text-center">
+            <div class="card-text">
               <form @submit.prevent="createBug" class="form">
                 <div class="form-group">
                   <input
@@ -38,9 +38,14 @@
     </div>
     <div class="row">
       <div class="col-12 text-center">
-        <div class="card customCard">
+        <div class="card customCard shadow-lg">
           <div class="card-header">BUGS</div>
           <ul class="list-group list-group-flush">
+            <li>
+              TITLE | DESCRIPTION |
+              <span @click="sortByStatus" class="text-info">STATUS</span>
+              | LAST UPDATED
+            </li>
             <bug-component v-for="bug in bugs" :key="bug.id" :bugProp="bug" />
           </ul>
         </div>
@@ -72,6 +77,9 @@ export default {
       this.$store.dispatch("createBug", this.newBug);
       this.newBug = {};
     },
+    sortByStatus() {
+      this.$store.dispatch("sortByStatus", this.bugs);
+    },
   },
   components: {
     BugComponent,
@@ -85,6 +93,12 @@ export default {
   max-width: 50vh;
   margin: 0 auto;
   margin-bottom: 10px;
+}
+.bugCreateCard {
+  max-width: 100vh;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 ul {
   list-style-type: none;

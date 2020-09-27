@@ -1,18 +1,18 @@
 import BaseController from "../utils/BaseController";
 import { bugsService } from "../services/BugsService";
 import auth0Provider from "@bcwdev/auth0provider";
+import { notesService } from "../services/NotesService";
 
 export class BugsController extends BaseController {
   constructor() {
     super("api/bugs")
     this.router
-      .use(auth0Provider.getAuthorizedUserInfo)
       .get("", this.getAll)
       .get("/:id", this.getById)
       .get("/:id/notes", this.getAllNotesByBugId)
+      .use(auth0Provider.getAuthorizedUserInfo)
       .post("", this.create)
       .put("/:id", this.editBug)
-      .delete("/:id", this.closeBug)
   }
 
   async getAll(req, res, next) {
@@ -26,7 +26,7 @@ export class BugsController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      let data = await bugsService.getById(req.params.id, req.userInfo.email)
+      let data = await bugsService.getById(req.params.id)
       return res.send(data)
     } catch (error) {
       next(error)
@@ -35,7 +35,7 @@ export class BugsController extends BaseController {
 
   async getAllNotesByBugId(req, res, next) {
     try {
-      let data = await bugsService.getAllNotesByBugId(req.params.id, req.userInfo.email)
+      let data = await notesService.getAllNotesByBugId(req.params.id)
       return res.send(data)
     } catch (error) {
       next(error)
@@ -59,15 +59,6 @@ export class BugsController extends BaseController {
       return res.send(data)
     } catch (error) {
       next(error)
-    }
-  }
-
-  async closeBug(req, res, next) {
-    try {
-      let data = await bugsService.closeBug(req.params.id, req.userInfo.email, req.body)
-      return res.send(data)
-    } catch (error) {
-
     }
   }
 }

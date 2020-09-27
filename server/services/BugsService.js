@@ -6,15 +6,12 @@ class BugsService {
   async getAll(query = {}) {
     return await dbContext.Bugs.find(query)
   }
-  async getById(id, email) {
-    let data = await dbContext.Bugs.findOne({ _id: id, creatorEmail: email })
+  async getById(id) {
+    let data = await dbContext.Bugs.findOne({ _id: id })
     if (!data) {
       throw new BadRequest("Invalid ID")
     }
     return data
-  }
-  async getAllNotesByBugId(id, email) {
-    return await dbContext.Notes.find({ bug: id, creatorEmail: email })
   }
   async create(body) {
     let data = await dbContext.Bugs.create(body)
@@ -26,12 +23,6 @@ class BugsService {
       throw new BadRequest("Invalid ID or you do not own this bug")
     }
     return data
-  }
-  async closeBug(id, email, body) {
-    let data = await dbContext.Bugs.findOneAndUpdate({ _id: id, creatorEmail: email }, body, { new: true })
-    if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this bug")
-    }
   }
 
 }

@@ -23,6 +23,21 @@ export default new Vuex.Store({
     },
     addBug(state, bug) {
       state.bugs.push(bug)
+    },
+    setActiveBug(state, bug) {
+      state.bug = bug
+    },
+    setNotes(state, notes) {
+      state.notes = notes
+    },
+    addNote(state, note) {
+      state.notes.push(note)
+    },
+    deleteNote(state, id) {
+      state.notes.filter(n => n.id != id)
+    },
+    editBug(state, bug) {
+      state.bug = bug
     }
   },
   actions: {
@@ -40,6 +55,8 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+
+    //BUGS
     async getBugs({ commit }) {
       try {
         let res = await api.get("/bugs")
@@ -52,6 +69,66 @@ export default new Vuex.Store({
       try {
         let res = await api.post("/bugs", newBug)
         commit("addBug", res.data)
+        commit("setActiveBug", res.data)
+        router.push({ name: "Bug", params: { id: res.data.id } })
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getActiveBug({ commit }, id) {
+      try {
+        let res = await api.get("bugs/" + id)
+        commit("setActiveBug", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    sortByStatus({ commit }, bugs) {
+      try {
+        bugs.sort((a, b) => b.closed - a.closed)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async closeBug({ commit }, bug) {
+      try {
+        let res = await api.delete("bugs/" + bug.id, bug)
+        commit("setActiveBug", bug)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async editBug({ dispatch }, bug) {
+      try {
+        let res = await api.put("bugs/" + bug.id, { closed: bug.closed })
+        dispatch("getActiveBug", bug.id)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    //NOTES
+    async getNotes({ commit }, id) {
+      try {
+        let res = await api.get("bugs/" + id + "/notes")
+        commit("setNotes", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async addNote({ commit }, newNote) {
+      try {
+        let res = await api.post("notes", newNote)
+        commit("addNote", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteNote({ commit, dispatch }, noteProp) {
+      try {
+        let res = await api.delete("notes/" + noteProp.id)
+        commit("deleteNote", res.data)
+        dispatch("getNotes", noteProp.bug)
       } catch (error) {
         console.error(error);
       }
