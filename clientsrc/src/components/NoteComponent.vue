@@ -21,7 +21,9 @@ export default {
   name: "Note",
   props: ["noteProp"],
   data() {
-    return {};
+    return {
+      editToggle: false,
+    };
   },
   computed: {},
   methods: {
