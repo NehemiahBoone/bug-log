@@ -36,35 +36,39 @@
               aria-describedby="helpId"
             />
           </div>
-          <button type="submit" class="btn btn-success">Change Bug</button>
+          <button type="submit" class="btn btn-success my-1">Change Bug</button>
         </form>
         <h1 class="mt-1 ml-1 titleStyle">{{ bug.title }}</h1>
         <h4 class="mt-1 ml-1">Created By: {{ bug.creatorEmail }}</h4>
-        <p class="mt-1 ml-3">{{ bug.description }}</p>
+        <p class="mt-1 mx-3">{{ bug.description }}</p>
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-12">
         <h2>Notes:</h2>
-        <form
-          v-if="this.bug.closed == false"
-          @submit.prevent="addNote"
-          class="form-inline"
-        >
-          <div class="form-group">
-            <input
-              type="text"
-              name="content"
-              id="content"
-              class="form-control"
-              placeholder="Content..."
-              v-model="newNote.content"
-              aria-describedby="helpId"
-            />
-          </div>
-          <button type="submit" class="btn btn-success">Post Note</button>
-        </form>
-        <note v-for="note in notes" :key="note.id" :noteProp="note" />
+        <div class="mx-3">
+          <form
+            v-if="this.bug.closed == false"
+            @submit.prevent="addNote"
+            class="form-inline"
+          >
+            <div class="form-group">
+              <input
+                type="text"
+                name="content"
+                id="content"
+                class="form-control"
+                placeholder="Content..."
+                v-model="newNote.content"
+                aria-describedby="helpId"
+              />
+            </div>
+            <button type="submit" class="btn btn-success mx-1">
+              Post Note
+            </button>
+          </form>
+          <note v-for="note in notes" :key="note.id" :noteProp="note" />
+        </div>
       </div>
     </div>
     <div class="row fixed-row-bottom">
@@ -127,9 +131,12 @@ export default {
       }
     },
     editBug() {
-      this.editToggle = false;
-      this.editedBug.id = this.$route.params.id;
-      this.$store.dispatch("editBug", this.editedBug);
+      let popup = confirm("Are you sure you want to edit this bug?");
+      if (popup == true) {
+        this.editToggle = false;
+        this.editedBug.id = this.$route.params.id;
+        this.$store.dispatch("editBug", this.editedBug);
+      }
     },
   },
   components: {
