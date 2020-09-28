@@ -120,7 +120,7 @@ export default {
     closeBug() {
       let popup = confirm("Are you sure you want to close this bug?");
       if (popup == true) {
-        this.$store.dispatch("editBug", {
+        this.$store.dispatch("closeBug", {
           closed: true,
           id: this.$route.params.id,
         });

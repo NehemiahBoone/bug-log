@@ -96,18 +96,18 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async closeBug({ commit }, bug) {
+    async closeBug({ commit, dispatch }, bug) {
       try {
-        let res = await api.delete("bugs/" + bug.id, bug)
-        commit("setActiveBug", bug)
+        let res = await api.put("bugs/" + bug.id, { closed: bug.closed })
+        dispatch("getActiveBug", bug.id)
       } catch (error) {
         console.error(error);
       }
     },
-    async editBug({ dispatch }, bug) {
+    async editBug({ dispatch }, editedBug) {
       try {
-        let res = await api.put("bugs/" + bug.id, { closed: bug.closed })
-        dispatch("getActiveBug", bug.id)
+        let res = await api.put("bugs/" + editedBug.id, editedBug)
+        dispatch("getActiveBug", editedBug.id)
       } catch (error) {
         console.error(error);
       }
