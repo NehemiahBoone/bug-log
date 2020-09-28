@@ -43,7 +43,14 @@
           <ul class="list-group list-group-flush">
             <li>
               TITLE | DESCRIPTION |
-              <span @click="sortByStatus" class="text-info">STATUS</span>
+              <span
+                @click="
+                  status = !status;
+                  sortByStatus();
+                "
+                class="text-info"
+                >STATUS</span
+              >
               | LAST UPDATED
             </li>
             <bug-component v-for="bug in bugs" :key="bug.id" :bugProp="bug" />
