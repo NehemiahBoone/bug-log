@@ -30,7 +30,6 @@
             >Profile</router-link
           >
         </li>
-        </li>
         <li
           class="nav-item"
           v-if="$auth.isAuthenticated"
