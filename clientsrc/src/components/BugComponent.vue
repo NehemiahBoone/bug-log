@@ -9,7 +9,7 @@
       | <span class="descriptionChar">{{ bugProp.description }}</span> |
       <span v-if="bugProp.closed == false">Open</span
       ><span v-if="bugProp.closed">Closed</span> |
-      {{ bugProp.updatedAt }}
+      {{ new Date(bugProp.updatedAt).toLocaleDateString("en-US") }}
     </li>
   </div>
 </template>

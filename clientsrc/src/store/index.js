@@ -85,7 +85,13 @@ export default new Vuex.Store({
     },
     sortByStatus({ commit }, bugs) {
       try {
-        bugs.sort((a, b) => b.closed - a.closed)
+        if (!bugs.status) {
+          bugs.sort((a, b) => (a.closed - b.closed))
+          bugs.status = true
+        } else {
+          bugs.sort((a, b) => (b.closed - a.closed))
+          bugs.status = false
+        }
       } catch (error) {
         console.error(error);
       }

@@ -65,6 +65,7 @@ export default {
   data() {
     return {
       newBug: {},
+      status: false,
     };
   },
   computed: {
@@ -78,6 +79,7 @@ export default {
       this.newBug = {};
     },
     sortByStatus() {
+      this.bugs.status = this.status;
       this.$store.dispatch("sortByStatus", this.bugs);
     },
   },
