@@ -38,7 +38,7 @@
           </div>
           <button type="submit" class="btn btn-success my-1">Edit</button>
         </form>
-        <h1 class="mt-1 ml-1 titleStyle">{{ bug.title }}</h1>
+        <h1 class="mt-1 ml-1 titleStyle text-primary">{{ bug.title }}</h1>
         <h4 class="mt-1 ml-1">Created By: {{ bug.creatorEmail }}</h4>
         <p class="mt-1 mx-3">{{ bug.description }}</p>
       </div>
