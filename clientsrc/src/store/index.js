@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import router from "../router";
 import { api } from "./AxiosService"
+import ns from "../Services/NotificationService"
 
 Vue.use(Vuex);
 
@@ -98,8 +99,11 @@ export default new Vuex.Store({
     },
     async closeBug({ commit, dispatch }, bug) {
       try {
-        let res = await api.put("bugs/" + bug.id, { closed: bug.closed })
-        dispatch("getActiveBug", bug.id)
+        if (await ns.confirmAction("Do you want to close this bug?", "This is not revertable!")) {
+          let res = await api.put("bugs/" + bug.id, { closed: bug.closed })
+          dispatch("getActiveBug", bug.id)
+        }
+        ns.toast("Bug Closed", 3000, "warning")
       } catch (error) {
         console.error(error);
       }

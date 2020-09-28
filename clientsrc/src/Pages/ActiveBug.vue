@@ -122,13 +122,10 @@ export default {
       this.newNote = {};
     },
     closeBug() {
-      let popup = confirm("Are you sure you want to close this bug?");
-      if (popup == true) {
-        this.$store.dispatch("closeBug", {
-          closed: true,
-          id: this.$route.params.id,
-        });
-      }
+      this.$store.dispatch("closeBug", {
+        closed: true,
+        id: this.$route.params.id,
+      });
     },
     editBug() {
       let popup = confirm("Are you sure you want to edit this bug?");
