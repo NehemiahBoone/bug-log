@@ -9,9 +9,9 @@ import cleanupService from "./services/TestCleanupService";
 export default class Startup {
   static ConfigureGlobalMiddleware(app) {
     // NOTE Configure and Register Middleware
-    let whitelist = ["http://localhost:8080"];
+    let whitelist = ["http://localhost:8080", "https://buggin-boone.herokuapp.com/"];
     let corsOptions = {
-      origin: function(origin, callback) {
+      origin: function (origin, callback) {
         let originIsWhitelisted = whitelist.indexOf(origin) !== -1;
         callback(null, originIsWhitelisted);
       },

@@ -1,7 +1,7 @@
 <template>
   <div class="bug container-fluid">
     <div class="row">
-      <div class="col-4">
+      <div class="col-4 col-sm-12">
         <button
           v-if="
             this.bug.creatorEmail == this.$auth.userInfo.name &&
@@ -36,7 +36,7 @@
               aria-describedby="helpId"
             />
           </div>
-          <button type="submit" class="btn btn-success my-1">Change Bug</button>
+          <button type="submit" class="btn btn-success my-1">Edit</button>
         </form>
         <h1 class="mt-1 ml-1 titleStyle">{{ bug.title }}</h1>
         <h4 class="mt-1 ml-1">Created By: {{ bug.creatorEmail }}</h4>
