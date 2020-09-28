@@ -38,14 +38,14 @@
           </div>
           <button type="submit" class="btn btn-success my-1">Edit</button>
         </form>
-        <h1 class="mt-1 ml-1 titleStyle text-primary">{{ bug.title }}</h1>
+        <h1 class="mt-1 ml-1 titleStyle text-light">{{ bug.title }}</h1>
         <h4 class="mt-1 ml-1">Created By: {{ bug.creatorEmail }}</h4>
         <p class="mt-1 mx-3">{{ bug.description }}</p>
       </div>
     </div>
     <div class="row mt-2">
       <div class="col-12">
-        <h2>Notes:</h2>
+        <h2 class="text-light">Notes:</h2>
         <div class="mx-3">
           <form
             v-if="this.bug.closed == false"
