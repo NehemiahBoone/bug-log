@@ -23,20 +23,17 @@ export default class NotificationService {
     }
   }
 
-  static toast(title = "Default Toast", time = 5000, icon = "info") {
+  static toast(title = "Default Toast", timer = 5000, icon = "info") {
     // @ts-ignore
     Swal.fire({
       title: title,
       icon: icon,
-      iconHtml: `<img
-        src="https://media4.giphy.com/media/QBd2kLB5qDmysEXre9/giphy.gif"
-        style="width: 50px"
-        alt
-      />`,
+      timer: timer,
       toast: true,
       position: "top-right",
       showConfirmButton: false,
       timerProgressBar: true
     })
   }
+
 }
