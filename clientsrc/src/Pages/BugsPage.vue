@@ -48,7 +48,7 @@
                   status = !status;
                   sortByStatus();
                 "
-                class="text-info"
+                class="text-info statusHover"
                 >STATUS</span
               >
               | LAST UPDATED
@@ -111,5 +111,8 @@ export default {
 }
 ul {
   list-style-type: none;
+}
+.statusHover {
+  cursor: pointer;
 }
 </style>
